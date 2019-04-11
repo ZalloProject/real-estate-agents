@@ -7,17 +7,15 @@ const Featured = ({agents = []}) => {
     <div className="featuredInnerContainer">
       {agents.map((agent, idx) => {
         return(
-          <span className="featuredAgentContainer">
-            <span className="featuredImage"
-              key={idx}>
+          <span className="featuredAgentContainer"
+          key={idx}>
+            <span className="featuredImage">
               <img src={agent.agent_photo}/>
             </span>
-            <span className="featuredName"
-              key={idx}>
+            <span className="featuredName">
               {agent.agent_name}
             </span>
-            <span className="featuredStars"
-              key={idx}>
+            <span className="featuredStars">
               <StarRatingComponent 
               className="featuredAgentStars"
               name="rate1" 
@@ -26,8 +24,7 @@ const Featured = ({agents = []}) => {
               emptyStarColor={"white"}
               value={agent.average_stars}/>
             </span>
-            <span className="featuredPhone"
-              key={idx}>
+            <span className="featuredPhone">
               {agent.phone}
             </span>
         </span>
