@@ -2,4 +2,4 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App.jsx';
 
-ReactDOM.render(<App />, document.getElementById("super-top-nav-bar"))
+ReactDOM.render(<App />, document.getElementById("real-estate-agents"))

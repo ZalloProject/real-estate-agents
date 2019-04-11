@@ -1,7 +1,7 @@
 {
-  "name": "super-top-nav-component",
+  "name": "real-estate-agents",
   "version": "",
-  "description": "This is the tippy-toppy, most upwards component in the home page",
+  "description": "Entire Page of Agents",
   "author": "Numerator",
   "license": "",
   "engines": {
@@ -23,6 +23,8 @@
     "identity-obj-proxy": "^3.0.0",
     "jest": "^24.7.1",
     "jest-cli": "^24.7.1",
+    "mongoose": "^5.5.1",
+    "mongoose-simple-random": "^0.4.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-test-renderer": "^16.8.6",
