@@ -11,7 +11,7 @@ class Search extends React.Component {
 
   handleClick(e){
     this.setState(prevState => ({
-      advancedView: !prevState
+      advancedView: !prevState.advancedView
     }))
   }
 
@@ -42,14 +42,36 @@ class Search extends React.Component {
               </label>
             </form>
             <select name="Buying or selling">
-              <option value="buyingOrSelling">Buying or Selling</option>
-              <option value="buyingAHome">Buying a Home</option>
-              <option value="sellingAHome">Selling a Home</option>
+              <option>Buying or Selling</option>
+              <option>Buying a Home</option>
+              <option>Selling a Home</option>
             </select>
-            <span className="searchAdvanced" onClick={this.handleClick}>
-              <button className="searchButton">Advanced</button>
+            <span className="searchAdvanced">
+              <button className="searchButton"
+              onClick={this.handleClick}>
+                Advanced
+              </button>
               {this.state.advancedView ? (
-                <span></span>
+                <span className="searchAdvancedContainer">
+                  <span className="searchAdvancedText">
+                    <h4>Home Type</h4>
+                    <h4>Home Price</h4>
+                    <h4>Languages</h4>
+                    <h4>Specialties</h4>
+                  </span>
+                  <select name="Any">
+                    {homeType.map(item => <option>{item}</option>)}
+                  </select>
+                  <select name="Min">
+                    {money.map(item => <option>{"Min"+item}</option>)}
+                  </select>
+                  <select name="Max">
+                    {money.map(item => <option>{"Max"+item}</option>)}
+                  </select>
+                  <select name="Any">
+                    {specialties.map(item => <option>{item}</option>)}
+                  </select>
+                </span>
                 ) : (
                   null
                 )}
@@ -60,5 +82,42 @@ class Search extends React.Component {
     )
   }
 }
+
+let homeType = [
+  'Any',
+  'Houses',
+  'Apartments',
+  'Condos/Co-Ops',
+  'Townhomes',
+  'Manufactured',
+  'Lots/Land'
+]
+
+let money = [
+  ":",
+  ':$50K', 
+  ':$75K',
+  ':$100K',
+  ':$100K', 
+  ':$150K',
+  ':$200K', 
+  ':$250K',
+  ':$300K',
+  ':$400K',
+  ':$500K',
+  ':$1M',
+  ':$5M'
+]
+
+let specialties = [
+  'Any',
+  "Buyer's Agent",
+  'Listing Agent', 
+  'Relocation',
+  'Foreclosure',
+  'Short Sale',
+  'Consulting',
+  'Other'
+]
 
 export default Search
