@@ -60,16 +60,16 @@ class Search extends React.Component {
                     <h4>Specialties</h4>
                   </span>
                   <select name="Any">
-                    {homeType.map(item => <option>{item}</option>)}
+                    {homeType.map((item, idx) => <option key={idx}>{item}</option>)}
                   </select>
                   <select name="Min">
-                    {money.map(item => <option>{"Min"+item}</option>)}
+                    {money.map((item, idx) => <option key={idx}>{"Min"+item}</option>)}
                   </select>
                   <select name="Max">
-                    {money.map(item => <option>{"Max"+item}</option>)}
+                    {money.map((item, idx) => <option key={idx}>{"Max"+item}</option>)}
                   </select>
                   <select name="Any">
-                    {specialties.map(item => <option>{item}</option>)}
+                    {specialties.map((item, idx) => <option key={idx}>{item}</option>)}
                   </select>
                 </span>
                 ) : (
