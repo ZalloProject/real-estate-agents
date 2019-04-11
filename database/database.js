@@ -1,5 +1,6 @@
-const mongoose = require('mongoose')
-const nameArr = require ('./nameArr')
+const mongoose = require('mongoose');
+const nameArr = require ('./nameArr');
+const reviewsArr = require('./reviewsArr')
 const random = require('mongoose-simple-random');
 
 // mongoose.connect('mongodb://localhost/form')
@@ -21,7 +22,11 @@ let agentSchema = mongoose.Schema({
   agent_type: String,
   average_stars: Number,
   num_ratings: Number,
-  agent_photo: String
+  agent_photo: String,
+  local_ratings: Number,
+  review_date: Date,
+  num_listings: Number,
+  review_text: String
 });
 
 agentSchema.plugin(random)
@@ -70,6 +75,20 @@ const agentAssign = (num) => {
   }
 }
 
+//ASSIGNS RANDOM DATE//
+const dateGetter=()=>{
+  let monthNum = randomNumberGen(3)
+  let months = ['February', 'March', 'April']
+  let day = randomNumberGen(28)
+
+  return new Date(`${months[monthNum]} ${day}, 2019 03:23:00`)
+}
+
+// local_ratings: Number,
+// review_date: Date,
+// num_listings: Number,
+// review_text: String
+
 //////////INSERTION///////////////// MUST BE RUN ON DB STARTUP TO AVERT ERRORS //////////////////
 function insertIntoDb(){
   let agentCount = 1
@@ -82,7 +101,11 @@ function insertIntoDb(){
         agent_type: agentAssign(agentCount), 
         average_stars: randomNumberGen(5, "stars"), 
         num_ratings: randomNumberGen(500, agentCount), 
-        agent_photo: `https://s3-us-west-2.amazonaws.com/agents-zallo/Realtor${agentCount++}.jpg`
+        agent_photo: `https://s3-us-west-2.amazonaws.com/agents-zallo/Realtor${agentCount++}.jpg`,
+        local_ratings: randomNumberGen(250),
+        review_date: dateGetter(),
+        num_listings: randomNumberGen(29),
+        review_text: reviewsArr[i]
       }
     ], (err, docs) => {
       if(err){
@@ -97,28 +120,19 @@ function insertIntoDb(){
 //////////FUNCTION TO RANDOMLY RETRIEVE DATA FROM THE DATABASE/////////////////
 const getFourRandomAgents = async (cb) => {
   let finalResultsArr = []
-  let filterOne = { agent_type: { $in: 'listing' } } 
-  let filterThree = { agent_type: { $in: 'premier' } }
-  let optionsThree = { limit: 3 } 
+  let optionsThirteen = { limit: 10 } 
 
   try {
-    await Agent.findRandom(filterOne, {}, {}, (err, one) => {
-    if(err){
-      console.error(err)
-    } else {
-      finalResultsArr.push(one[0])
-    }
-  });
-  await Agent.findRandom(filterThree, {}, optionsThree, (err, three) => {
-    if(err){
-      console.error(err)
-    } else {
-      for(var i = 0; i < three.length; i++){
-        finalResultsArr.push(three[i])
+    await Agent.findRandom({}, {}, optionsThirteen, (err, thirteen) => {
+      if(err){
+        console.error(err)
+      } else {
+        for(var i = 0; i < thirteen.length; i++){
+          finalResultsArr.push(thirteen[i])
+        }
       }
-    }
-    cb(finalResultsArr)
-  })
+      cb(finalResultsArr)
+    })
   }
   catch(e){
     return e
